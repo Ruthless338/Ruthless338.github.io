@@ -1,0 +1,357 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>Diffusion与FlowMatching | Ruthless&#39;s Blog</title>
+    <meta name="author" content="Ruthless" />
+    <meta name="description" content="关于Ruthless的一些分享" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>RUTHLESS&#39;S BLOG</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;RUTHLESS&#39;S BLOG</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>Diffusion与FlowMatching</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            创建：2026/1/9
+        </span>
+        
+            
+        
+        <span class="category">
+            <a href="/categories/%E7%A7%91%E7%A0%94/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                科研
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" style="color: #ffa2c4">
+                    深度学习
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/" style="color: #ff7d73">
+                    生成模型
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>Diffusion Model 和 Flow Matching的简单理解与相关论文。</p>
+<span id="more"></span>
+<p>Stable Diffusion + Text Inversion完整工作流程：</p>
+<ol>
+<li>Text Inversion(TI)训练: 有监督训练，text_encoder一般是Transformer，输入为prompt+示例图，输出为文本嵌入向量，再经过扩散模型（预训练冻结的SD）生成图，对比示例图完成训练</li>
+<li>逆扩散：生成一个纯随机高斯噪声，选择一个prompt经过TI生成文本向量，经过t步去噪，每步去噪输入为上一步潜噪声+文本向量+步数t，经过U-Net得到大小不变的预测噪声，最后经过scheduler得到新潜变量</li>
+<li>VAE解码：逆扩散得到的潜变量经过预训练的VAE decoder得到最终的生成图</li>
+</ol>
+<p>Flow Matching：<br>
+不同于Diffusion Model，FM步数少，每一步使用UNet去预测速度场</p>
+<p>下面列出一些使用Diffusion或者FM的论文，收集背景为Medical Data Augmentation。</p>
+<ol>
+<li>
+<p>MRGen: Segmentation Data Engine for Underrepresented MRI Modalities<br>
+Diffusion Model+text-guided + mask-conditioned生成，主要用于分割</p>
+</li>
+<li>
+<p>Latent Drifting in Diffusion Models for Counterfactual Medical Image Synthesis 2025CVPR<br>
+使用Latent Drifting(LD)为预训练的Latent Diffusion Model(LDM)的反向扩散去噪阶段的均值增加校准，实现Counterfactual Medical Image Synthesis</p>
+</li>
+<li>
+<p>Enhance Image Classification via Inter-Class Image Mixup with Diffusion Model  2024CVPR<br>
+Diff-Mix: 使用Textual Inversion(TI) + DB（用于微调U-Net）微调Stable Diffusion（SD），之后对采样图像（全训练集的跨类图像）进行前向加噪，再反向去噪（使用目标类TI）完成图像生成（跨类翻译） -&gt; faithfulness and diversity</p>
+</li>
+<li>
+<p>BEYOND OBJECTS: CONTEXTUAL SYNTHETIC DATA GENERATION FOR FINE-GRAINED CLASSIFICATION<br>
+BOB: 微调T2I构建真实图像的“background-pose”，再完全依赖“class-background-pose”生成图像</p>
+</li>
+<li>
+<p>Inversion Circle Interpolation: Diffusion-based Image Augmentation for Data-scarce Classification 2025CVPR<br>
+Diff-II: category learning（微调U-Net） + 随机采样（两张同类别）DDIM反转&gt;Inversion Circle interpolatoin + 提示词coarse-fine去噪 -&gt; faithfulness and diversity<br>
+DDIM反转：从干净图像反推高噪声潜向量，不同于DM加噪的正向加随机噪声破坏图像</p>
+</li>
+<li>
+<p>DreamDA: Generative Data Augmentation with Diffusion Models<br>
+DreamDA: 在SD+TI基础上，在逆扩散的每一步，给 U-Net 的瓶颈层特征加高斯噪声</p>
+</li>
+<li>
+<p>Generating Images of Rare Concepts Using Pre-trained Diffusion Models  2024AAAI<br>
+针对rare concept和类级概念生成，TI聚焦示例级生成，而论文提出的SeedSelect（随机噪声作为参数，反向传播确定固定文本向量的有效噪声区域）效果更好，由于论文要求对SD无微调，所以不使用TI</p>
+</li>
+<li>
+<p>EFFECTIVE DATA AUGMENTATION WITH DIFFUSION MODELS ICLR 2024<br>
+早期的TI+SD生成</p>
+</li>
+<li>
+<p>Synthetic Data Augmentation using Pre-trained Diffusion Models for Long-tailed Food Image Classification 2025CVPR<br>
+在TI+SD的基础上，通过CADS动态退火为正提示文本向量加噪，通过CCFG+正负prompt融合噪声（拉进同类、推远异类）</p>
+</li>
+<li>
+<p>AUGMENTED CONDITIONING IS ENOUGH FOR EFFECTIVE TRAINING IMAGE GENERATION<br>
+采样为两张同类图像，通过CutMix + Mixup +Dropout方法增强图像，不使用TI微调SD，针对长尾/少样本数据集</p>
+</li>
+<li>
+<p>DALDA: Data Augmentation Leveraging Diffusion Model and LLM with Adaptive Guidance Scaling<br>
+使用LLM为每张图生成多样的prompt，同类采样prompt和示例图，再经过CLIP-&gt;IP-Adapter(解耦交叉注意力，融合特征)-&gt;Diffusion Model-&gt;VAE decoder，其中所有模型都是冻结的</p>
+</li>
+<li>
+<p>Interpolating between Images with Diffusion Models<br>
+采样为固定的两帧，主要目的是生成平滑过渡而非faithfulness+diversity，两帧示例图加噪之后球面线性插值+TI(Text Embedding)+Pose Guidance 输入到 DM</p>
+</li>
+<li>
+<p>Flow Matching for Medical Image Synthesis: Bridging the Gap Between Speed and Quality  MICCAI2025<br>
+使用Flash Attention优化医学图像，主要模型为FM，输入为纯高斯噪声+独热编码+mask（可选），输出为生成图</p>
+</li>
+<li>
+<p>Contrastive Flow Matching<br>
+在Flow Matching中加入对比损失，即随机采样batch中的其他流做loss</p>
+</li>
+<li>
+<p>FlowAR: Scale-wise Autoregressive Image Generation Meets Flow Matching<br>
+FlowAR: 使用VAE构造多尺度latent -&gt; 自回归Transformer生成多尺度语义条件 -&gt; Spatial-adaLN融合语义条件和latent，输入FM，最后通过VAE输出生成图像</p>
+</li>
+<li>
+<p>Metric Flow Matching for Smooth Interpolations on the Data Manifold NeurlPS2024<br>
+MFM: 插值函数从FM的线性插值改为非线性插值，目的是构建符合数据流形的概率路径，开销高</p>
+</li>
+</ol>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2025 - 2026 Ruthless&#39;s Blog
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;Ruthless
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="Ruthless338/blog"
+    data-repo-id="R_kgDOPG6PWg"
+    data-category="General"
+    data-category-id="DIC_kwDOPG6PWs4CssNf"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
+    
+</body>
+</html>

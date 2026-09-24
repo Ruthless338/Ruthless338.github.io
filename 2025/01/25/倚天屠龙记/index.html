@@ -1,0 +1,302 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>倚天屠龙记 | Ruthless&#39;s Blog</title>
+    <meta name="author" content="Ruthless" />
+    <meta name="description" content="关于Ruthless的一些分享" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>RUTHLESS&#39;S BLOG</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;RUTHLESS&#39;S BLOG</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>倚天屠龙记</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            创建：2025/1/25
+        </span>
+        
+            
+        
+        <span class="category">
+            <a href="/categories/%E9%9A%8F%E7%AC%94/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                随笔
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E9%9A%8F%E7%AC%94/" style="color: #00bcd4">
+                    随笔
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E5%B0%8F%E8%AF%B4/" style="color: #ff7d73">
+                    小说
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E9%87%91%E5%BA%B8/" style="color: #ffa2c4">
+                    金庸
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E6%AD%A6%E4%BE%A0%E9%A2%98%E6%9D%90/" style="color: #03a9f4">
+                    武侠题材
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>或许是《射雕英雄传》和《神雕侠侣》的故事早有耳闻，《倚天屠龙记》的剧情在我眼里更加引人入胜。仅用一周，我便如饥似渴地读完了张无忌的故事。</p>
+<span id="more"></span>
+<p>《倚天屠龙记》的剧情复杂，尤其表现在张无忌的情感交织上。张无忌不同于诚朴质实的郭靖和深情狂放的杨过，他的个性复杂且软弱。虽有郭靖几分英雄气概和家国情怀，但更多是优柔寡断和被逼无奈，无论是担任明教教主，还是于四个姑娘之间的爱恨情仇，都显得心智不坚，无太多谋略，但这也更和我们普通人相似些。郭靖从小在母亲的教导之下，加之父亲的遭遇，一腔报国热血当真是豪气冲云霄，性格刚毅，于大事有自己的主见。杨过聪明机智仅在黄蓉之下，性格圆滑且不受人摆布。但张无忌的一生却总是收到别人的影响，被环境所支配，无法解脱束缚。<br>
+自张翠山和殷素素被正道逼死之后，张无忌最悲苦的十年就开始了，受玄冥二老一记玄冥神掌之后，张三丰虽竭力救治但无法根除，后在胡青牛手下学医问道，但寒毒仍无法根除，掉落悬崖机缘巧合之下习得九阳神功，自出山之后内功怕只在张三丰之下。这十年张无忌奇遇不可谓不多，一手举世无双的医术和精湛的内功，是他之后克敌的关键。后遇到蛛儿，即殷离，从十一二岁就对张无忌恋恋不舍之人，再与小昭相遇，在光明顶密道学会了乾坤大挪移，独战六大正道门派，出任明教教主。之后在绿柳山庄遇到了赵敏，此时围攻光明顶的正道均已落入朝廷之手，破除赵敏对明教和武当的阴谋之后，张无忌前往营救正派人士。在此张无忌大展神威，对正道人士有恩，也是中期的一个转折点，有利于化解明教和正派之间的矛盾。之后的故事主要围绕谢逊展开，灵蛇岛斗紫衫龙王，波斯教三大使者，小昭被迫跟随母亲离开中原。荒岛之上周芷若起歹念放逐赵敏，残害殷离，这是我最痛恨的一点，峨眉派周芷若和灭绝师太都不是什么好东西，然而张无忌总是以德报怨，我却并不怎么瞧得起。敢爱敢恨，杀伐果决才是正道，袁天罡之霸道的观念已经深入我的骨髓。周芷若趁机谋害谢逊，再之后的故事几乎都是围绕营救谢逊展开。张无忌战少林寺三大神僧也是让人热血沸腾，是《倚天屠龙记》的巅峰之战，当世除张三丰外无人能出张无忌之左右，堂堂男儿，该当如此，自恃内功举世无双，加之乾坤大挪移和武当太极之精髓，竟强悍如斯！谢逊前半生作恶多端，和成昆恩断义绝之后出家做了和尚，威震天下的金毛狮王最后结局也是令人唏嘘。周芷若黑化起源也是因为灭绝师太这个臭尼姑的偏见，决定点是因为张无忌对爱情的拉拉扯扯，殊为我所不解和不齿。<br>
+不同于前两部，《倚天屠龙记》门户派别观念更重，六大正派围攻光明顶，元大都营救正派，以及少林寺英雄大会，这三个场面是聚集了数百人的宏大场景，令人回味。<br>
+《倚天屠龙记》主要围绕倚天剑和屠龙刀的爱恨情仇展开，尤其是屠龙刀，诸多名门正派对张殷二人，谢逊和明教的仇恨事小，更多的是对屠龙宝刀的贪念。而《射雕英雄传》可以说是围绕九阴真经，但是除了欧阳锋这个反派之外，郭黄二人无太多阻碍，但正派对屠龙刀的贪念可谓是人皆有之。<br>
+不同于《射雕英雄传》和《神雕侠侣》，《倚天屠龙记》的最终理想是驱除鞑子复兴中原。书中出现的朱元璋，徐达等人符合史实。<br>
+书中的侠义之气，令人叹服，即使是灭绝师太这种爱慕虚荣小肚鸡肠的臭尼姑，竟也心存大义，宁死不从朝廷，数天绝食身体憔悴但精神却更显刚毅，此等侠义心怀当今实属少见。每一个武林人士都有自己的骄傲，背后偷袭、暗器伤人、以多敌少、趁人之危等均为人所不齿，发毒誓就可令众人信服，可见书中并无太多尔虞我诈，大多角色仍是有自己的原则和底线。像玄冥二老这等贪图名利之辈终为少数。<br>
+三部书读完，实令人心潮澎湃，浩荡侠义之气激荡在心中，久久不能消散。</p>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2025 - 2026 Ruthless&#39;s Blog
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;Ruthless
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="Ruthless338/blog"
+    data-repo-id="R_kgDOPG6PWg"
+    data-category="General"
+    data-category-id="DIC_kwDOPG6PWs4CssNf"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
+    
+</body>
+</html>
